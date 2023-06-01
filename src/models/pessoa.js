@@ -1,38 +1,29 @@
-const Sequelize = require('sequelize');
-const database = require('../db');
- 
-const Pessoa = database.define('pessoa', {
-    id: {
-        type: Sequelize.INTEGER,
-        autoIncrement: true,
-        allowNull: false,
-        primaryKey: true
-    },
-    nome: {
-        type: Sequelize.STRING,
-        allowNull: false
-    },
-    sobrenome: {
-        type: Sequelize.STRING,
-        allowNull: false
-    },
-    cpf: {
-        type: Sequelize.STRING,
-        allowNull: false,
-        unique: true
-    },
-    email: {
-        type: Sequelize.STRING
-    },
-    telefone: {
-        type: Sequelize.INTEGER
-    },
-    altura: {
-        type: Sequelize.DOUBLE
-    },
-    peso: {
-        type: Sequelize.DOUBLE
-    },
-})
- 
+const stringChecker = require("./extesions/string/checker")
+
+class Pessoa {
+
+  constructor(data) {
+
+    this.nome = data.nome;
+    this.sobrenome = data.sobrenome;
+    this.cpf = data.cpf;
+    this.email = data.email;
+    this.telefone = data.telefone;
+    this.altura = data.altura;
+    this.peso = data.peso;
+
+  }
+
+  checkData() {
+
+    var erros = [];
+
+    erros.push(stringChecker.email(this.email));
+    console.log(this.email);
+
+    return erros
+
+  }
+}
+
 module.exports = Pessoa;
